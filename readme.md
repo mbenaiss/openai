@@ -4,27 +4,6 @@
 
 ## Installation
 
-### Homebrew (macOS)
-
-```bash
-$ brew install mbenaiss/homebrew-tap/openai-cli
-```
-
-This will install the latest available release
-
-### Download binary
-
-You can download the latest version of the binary built for your architecture here:
-
-- Architecture **i386** [
-  ]
-
-- Architecture **amd64** [
-  ]
-
-- Architecture **arm** [
-  ]
-
 ### From sources
 
 Optionally, you can download and build it from the sources. You have to retrieve the project sources by using one of the following way:
