@@ -6,7 +6,7 @@
 
 ### From sources
 
-Optionally, you can download and build it from the sources. You have to retrieve the project sources by using one of the following way:
+You can download and build it from the sources. You have to retrieve the project sources by using one of the following way:
 
 ```bash
 $ go get -u github.com/mbenaiss/openai
@@ -22,7 +22,7 @@ $ make install
 
 ## Configuration
 
-Run `openai init` to set OPENAI api_key. You can also set it manually in your .openai file in your HOME path.
+Run `openai init` to set OPENAI `API_KEY`. You can also set it manually in your `.openai` file in your HOME path.
 
 ## Usage
 
