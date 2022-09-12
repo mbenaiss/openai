@@ -10,6 +10,12 @@ import (
 	"github.com/mbenaiss/openai/cli/openai"
 )
 
+var model = map[string]string{
+	"curie":   "text-curie-001",
+	"davinci": "text-davinci-002",
+	"codex":   "code-davinci-002",
+}
+
 func main() {
 	app := &cli.App{
 		Commands: []*cli.Command{
@@ -24,6 +30,7 @@ func main() {
 		Usage: "OpenAI technology is a cutting edge technology that allows for artificial intelligence to be used in a variety of ways.",
 		Flags: []cli.Flag{
 			&cli.StringFlag{Name: "prompt", Value: "", Usage: "prompt", Aliases: []string{"p"}},
+			&cli.StringFlag{Name: "model", Value: "davinci", Usage: "model", Aliases: []string{"m"}},
 			&cli.Float64Flag{Name: "temperature", Value: 0.5, Usage: "temperature", Aliases: []string{"t"}},
 			&cli.IntFlag{Name: "token", Value: 100, Usage: "token", Aliases: []string{"mt"}},
 			&cli.Float64Flag{Name: "frequency-penalty", Value: 0.0, Usage: "frequency penalty", Aliases: []string{"fp"}},
@@ -37,8 +44,13 @@ func main() {
 
 			openaiClient := openai.New(config.APIKey)
 
+			model := model[c.String("model")]
+			if model == "" {
+				model = "text-davinci-002"
+			}
+
 			payload := openai.Payload{
-				Model:            "text-davinci-002",
+				Model:            model,
 				Prompt:           c.String("prompt"),
 				Temperature:      c.Float64("temperature"),
 				MaxTokens:        c.Int("token"),
