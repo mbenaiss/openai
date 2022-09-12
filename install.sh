@@ -17,5 +17,6 @@ echo "Downloading $latest for $os_arch"
 filename="openai_${latest:1}_$os_arch.tar.gz"
 
 # download the latest release
-curl -sL https://github.com/mbenaiss/openai/releases/download/$latest/$filename -o $filename | tar -xzf $filename -C /usr/local/bin
+curl -sL https://github.com/mbenaiss/openai/releases/download/$latest/$filename -o $filename 
+tar -xzf $filename -C /usr/local/bin
 rm -rf $filename

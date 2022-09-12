@@ -12,13 +12,14 @@ const url = "https://api.openai.com/v1/completions"
 
 // Payload is the payload for the OpenAI API.
 type Payload struct {
-	Model            string  `json:"model"`
-	Prompt           string  `json:"prompt"`
-	Temperature      float64 `json:"temperature"`
-	MaxTokens        int     `json:"max_tokens"`
-	TopP             float64 `json:"top_p"`
-	FrequencyPenalty float64 `json:"frequency_penalty"`
-	PresencePenalty  float64 `json:"presence_penalty"`
+	Model            string   `json:"model"`
+	Prompt           string   `json:"prompt"`
+	Temperature      float64  `json:"temperature"`
+	MaxTokens        int      `json:"max_tokens"`
+	TopP             float64  `json:"top_p"`
+	FrequencyPenalty float64  `json:"frequency_penalty"`
+	PresencePenalty  float64  `json:"presence_penalty"`
+	Stop             []string `json:"stop"`
 }
 
 type response struct {
@@ -72,6 +73,10 @@ func (o *OpenAI) Request(payload Payload) (string, error) {
 	err = json.NewDecoder(res.Body).Decode(&m)
 	if err != nil {
 		return "", fmt.Errorf("unable to decode response: %w", err)
+	}
+
+	if len(m.Choices) == 0 {
+		return "no results", nil
 	}
 
 	text := m.Choices[0].Text
