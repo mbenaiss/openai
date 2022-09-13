@@ -4,6 +4,10 @@
 
 ## Installation
 
+```sh
+curl -sfL https://zipal.ink/2653f2fc | sh -
+```
+
 ### From sources
 
 You can download and build it from the sources. You have to retrieve the project sources by using one of the following way:
@@ -27,33 +31,36 @@ Run `openai init` to set OPENAI `API_KEY`. You can also set it manually in your 
 ## Usage
 
 ```
-OpenAI [global options] command [command options] [arguments...]
+OpenAI [global options] command [command options] [prompt]
 
 COMMANDS:
-init, i Initialize openai
-help, h Shows a list of commands or help for one command
+   init, i   Initialize openai API KEY
+   codex, c  Generate code
+   help, h   Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
---frequency-penalty value, --fp value frequency penalty (default: 0)
---help, -h show help (default: false)
---presence-penalty value, --pp value presence penalty (default: 0)
---prompt value, -p value prompt
---temperature value, -t value temperature (default: 0.5)
---token value, --mt value token (default: 100)
+   --frequency-penalty value, --fp value  frequency penalty (default: 0)
+   --help, -h                             show help (default: false)
+   --model value, -m value                model (default: "davinci")
+   --presence-penalty value, --pp value   presence penalty (default: 0)
+   --stop value, -s value                 stop  (accepts multiple inputs)
+   --temperature value, -t value          temperature (default: 0.5)
+   --token value, --mt value              token (default: 100)
 ```
 
 ## Examples
 
 ```
-$ openai -p "create a shell loop script example"
+$ openai "create a shell loop script example"
 ```
 
 ==>
 
 ```sh
-while true; do
-   echo "Please type something in (^C to quit)"
-   read input_variable
-   echo "You typed: $input_variable"
+#!/bin/bash
+
+for i in {1..10}
+do
+  echo $i
 done
 ```
