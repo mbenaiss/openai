@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/urfave/cli/v2"
 
@@ -42,11 +43,14 @@ func main() {
 				Action: func(c *cli.Context) error {
 					stop := c.StringSlice("stop")
 					if len(stop) == 0 {
-						stop = nil
+						stop = []string{"OUTPUT", "</code>"}
 					}
 
+					promptArgs := c.Args().Get(0)
+
+					prompt := fmt.Sprintf("%s \nCODE: \n", promptArgs)
 					payload := openai.Payload{
-						Prompt:           c.Args().Get(0),
+						Prompt:           prompt,
 						Model:            model["codex"],
 						Temperature:      c.Float64("temperature"),
 						TopP:             1,
@@ -60,6 +64,8 @@ func main() {
 					if err != nil {
 						return err
 					}
+
+					text = strings.TrimLeft(text, "<code>")
 
 					fmt.Println(text)
 
