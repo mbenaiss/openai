@@ -2,6 +2,7 @@ package openai
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -47,13 +48,13 @@ func New(apiKey string) *OpenAI {
 }
 
 // Request is a wrapper around the OpenAI API.
-func (o *OpenAI) Request(payload Payload) (string, error) {
+func (o *OpenAI) Request(ctx context.Context, payload Payload) (string, error) {
 	payloadJSON, err := json.Marshal(payload)
 	if err != nil {
 		return "", fmt.Errorf("unable to marshal payload: %w", err)
 	}
 
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payloadJSON))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewBuffer(payloadJSON))
 	if err != nil {
 		return "", fmt.Errorf("unable to create request: %w", err)
 	}
